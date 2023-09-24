@@ -1,12 +1,16 @@
 import React from 'react';
-import { SafeAreaView, StatusBar, Text } from 'react-native';
+import { SafeAreaView, StatusBar, Text, View } from 'react-native';
 
 function App(): React.JSX.Element {
   return (
-    <SafeAreaView>
-      <StatusBar barStyle="light-content" />
-      <Text>App component</Text>
-    </SafeAreaView>
+    <>
+      <SafeAreaView>
+        <StatusBar barStyle="light-content" />
+      </SafeAreaView>
+      <View style={{ flex: 1, backgroundColor: '#eee' }}>
+        <Text>App component</Text>
+      </View>
+    </>
   );
 }
 
