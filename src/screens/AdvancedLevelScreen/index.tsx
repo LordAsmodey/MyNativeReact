@@ -7,4 +7,4 @@ export const AdvancedLevelScreen = () => {
       <Text>AdvancedLevelScreen</Text>
     </VStack>
   );
-}
+};
