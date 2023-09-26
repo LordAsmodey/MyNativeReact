@@ -1,7 +1,8 @@
 import React from 'react';
 import { SafeAreaView, StatusBar } from 'react-native';
-import { NativeBaseProvider, Text, VStack } from 'native-base';
+import { NativeBaseProvider, VStack } from 'native-base';
 import * as theme from './theme';
+import { Navigation } from './navigation/NavigationContainer';
 function App(): React.JSX.Element {
   return (
     <NativeBaseProvider theme={theme.theme} config={theme.config}>
@@ -9,7 +10,7 @@ function App(): React.JSX.Element {
         <StatusBar barStyle="light-content" />
       </SafeAreaView>
       <VStack flex="1" bg="gray.100">
-        <Text>App component</Text>
+        <Navigation />
       </VStack>
     </NativeBaseProvider>
   );
