@@ -21,10 +21,10 @@ const defaultCurrency = 'usd';
 const defaultTickers = ['bitcoin', 'ethereum'];
 export const getPriceForTickers = async (
   tickers = defaultTickers,
-  currency = defaultCurrency,
+  userCurrency = defaultCurrency,
 ): Promise<PricesForTickers[]> => {
   const stringTickers = tickers.join(',');
-  const res = await axiosInstance.get(`price?ids=${stringTickers}&vs_currencies=${currency}`);
+  const res = await axiosInstance.get(`price?ids=${stringTickers}&vs_currencies=${userCurrency}`);
 
   return Object.keys(res.data).map((key) => {
     const ticker = key as Tickers;
