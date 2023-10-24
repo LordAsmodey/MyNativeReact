@@ -9,7 +9,7 @@ export const WelcomeScreen = () => {
   return (
     <VStack>
       <Text>WelcomeScreen</Text>
-      <Button onPress={() => navigation.navigate('Tabs', { screen: 'BasicLevelScreen' })}>Start learning</Button>
+      <Button onPress={() => navigation.navigate('Tabs', { screen: 'BasicLevelScreen' })}>Start app</Button>
     </VStack>
   );
 };
