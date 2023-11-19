@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { StoreKeys, useStore } from '../hooks/useStore';
 
-const DEFAULT_RATE_UPDATE_TIMEOUT_MS = 60000;
+const DEFAULT_RATE_UPDATE_TIMEOUT_MS = 20000;
+
 interface IUserContextProvider {
   favoriteAssets: string[];
   toggleAssetInFavorites: (asset: string) => void;

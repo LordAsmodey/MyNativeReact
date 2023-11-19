@@ -9,7 +9,7 @@ export const BasicLevelScreen = () => {
   const { favoriteAssets, toggleAssetInFavorites, loading } = useUser();
 
   return (
-    <VStack flex={1}>
+    <VStack flex="1">
       <Text>{isFetching || loading ? 'LOADING' : 'DONE'}</Text>
       <Text>
         Rate updates in <SecondsCountdown expireTime={nextRateUpdateTime} renderer={({ timer }) => <>{timer}</>} />

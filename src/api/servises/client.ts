@@ -2,7 +2,6 @@ import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import { tokenService } from './tokenService';
 
 const BASE_URL = 'https://api.coingecko.com/api/v3';
-//const BASE_URL = 'https://google.com';
 
 // Implementation of a client service to add tokens to the request body and
 // intercept the server response if the user is not authorized. Will be used in the future.
