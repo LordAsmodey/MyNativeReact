@@ -10,13 +10,14 @@ const KEYS: {
 };
 
 export const tokenService = {
-  getToken(): Promise<string | null> {
-    return new Promise(() => 'Token 12345');
+  getToken(): string | null {
+    return '123';
     //return AsyncStorage.getItem(KEYS.ACCESS);
   },
 
-  async hasToken(): Promise<boolean | null> {
-    return !!(await AsyncStorage.getItem(KEYS.ACCESS));
+  hasToken(): boolean {
+    return true;
+    //return !!(await AsyncStorage.getItem(KEYS.ACCESS));
   },
 
   getRefreshToken() {

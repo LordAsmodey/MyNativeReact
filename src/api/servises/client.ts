@@ -1,7 +1,8 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import { tokenService } from './tokenService';
+import { Platform } from 'react-native';
 
-const BASE_URL = 'https://api.coingecko.com/api/v3';
+const baseUrl = Platform.OS === 'ios' ? 'http://localhost:3000' : 'http://10.0.2.2:3000';
 
 // Implementation of a client service to add tokens to the request body and
 // intercept the server response if the user is not authorized. Will be used in the future.
@@ -13,7 +14,7 @@ export const UnauthorizedExceptionDtoErrorEnum = {
 } as const;
 const createAxiosInstance = (): AxiosInstance => {
   const hewInstance = axios.create({
-    baseURL: BASE_URL,
+    baseURL: baseUrl,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -22,9 +23,9 @@ const createAxiosInstance = (): AxiosInstance => {
 
   hewInstance.interceptors.request.use(
     async (config) => {
-      if (await tokenService.hasToken()) {
+      if (tokenService.hasToken()) {
         try {
-          config.headers.Authorization = `Bearer ${await tokenService.getToken()}`;
+          config.headers.Authorization = `Bearer ${tokenService.getToken()}`;
         } catch (e) {
           console.error(e);
         }

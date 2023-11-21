@@ -1,20 +1,22 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { StoreKeys, useStore } from '../hooks/useStore';
+import React, { createContext, useContext, useState } from 'react';
+import { getUserInfo } from '../api/api';
+import { useQuery } from '@tanstack/react-query';
+import { User } from '../api/types/User';
 
 const DEFAULT_RATE_UPDATE_TIMEOUT_MS = 20000;
 
 interface IUserContextProvider {
-  favoriteAssets: string[];
+  userData: User;
   toggleAssetInFavorites: (asset: string) => void;
-  loading: boolean;
+  isLoading: boolean;
   userSettings: {
     rateUpdateTimeout: number;
   };
 }
 const UserContextDefault = {
-  favoriteAssets: [],
+  userData: {} as User,
   toggleAssetInFavorites: () => undefined,
-  loading: false,
+  isLoading: false,
   userSettings: {
     rateUpdateTimeout: DEFAULT_RATE_UPDATE_TIMEOUT_MS,
   },
@@ -23,30 +25,26 @@ const UserContext = createContext<IUserContextProvider>(UserContextDefault);
 
 export const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [favoriteAssets, setFavoriteAssets] = useState<string[]>([]);
-  const { getItems, setItems, loading } = useStore();
 
-  useEffect(() => {
-    getItems(StoreKeys.favoriteAssets).then((res) => {
-      if (res) {
-        setFavoriteAssets(res.split(','));
-      }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { data: userData, isLoading } = useQuery({
+    queryKey: ['UserData'],
+    queryFn: async () => {
+      return await getUserInfo();
+    },
+  });
+
   const toggleAssetInFavorites = async (asset: string) => {
     const isAssetExist = favoriteAssets.includes(asset);
 
     if (isAssetExist) {
       const filteredAssets = favoriteAssets.filter((item) => item !== asset);
       try {
-        await setItems(StoreKeys.favoriteAssets, filteredAssets.join(','));
         setFavoriteAssets(filteredAssets);
       } catch (e) {
         console.error(e);
       }
     } else {
       try {
-        await setItems(StoreKeys.favoriteAssets, [...favoriteAssets, asset].join(','));
         setFavoriteAssets((prev) => [...prev, asset]);
       } catch (e) {
         console.error(e);
@@ -55,9 +53,9 @@ export const UserContextProvider = ({ children }: { children: React.ReactNode })
   };
 
   const value = {
-    favoriteAssets,
+    userData,
     toggleAssetInFavorites,
-    loading,
+    isLoading,
     userSettings: {
       rateUpdateTimeout: DEFAULT_RATE_UPDATE_TIMEOUT_MS,
     },

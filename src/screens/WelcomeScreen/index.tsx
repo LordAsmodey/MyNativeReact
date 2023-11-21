@@ -6,6 +6,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 export const WelcomeScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
+
   return (
     <VStack>
       <Text>WelcomeScreen</Text>
