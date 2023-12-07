@@ -6,10 +6,11 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 export const WelcomeScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
+
   return (
     <VStack>
       <Text>WelcomeScreen</Text>
-      <Button onPress={() => navigation.navigate('Tabs', { screen: 'BasicLevelScreen' })}>Start learning</Button>
+      <Button onPress={() => navigation.navigate('Tabs', { screen: 'BasicLevelScreen' })}>Start app</Button>
     </VStack>
   );
 };
