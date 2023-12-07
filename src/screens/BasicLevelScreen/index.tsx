@@ -1,5 +1,6 @@
 import { Image, Pressable, ScrollView, Text, VStack } from 'native-base';
 import React from 'react';
+
 import { useCryptoCurrencyData } from '../../api/hooks/useCryptoCurrencyData';
 import SecondsCountdown from '../../components/SecondsCountdown';
 import { useUser } from '../../contexts/UserContext';

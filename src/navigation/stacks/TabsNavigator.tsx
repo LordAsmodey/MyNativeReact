@@ -1,7 +1,8 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { BasicLevelScreen } from '../../screens/BasicLevelScreen';
 import React from 'react';
+
 import { AdvancedLevelScreen } from '../../screens/AdvancedLevelScreen';
+import { BasicLevelScreen } from '../../screens/BasicLevelScreen';
 import { SettingsScreen } from '../../screens/SettingsScreen';
 
 export type TabsNavigatorParamsList = {

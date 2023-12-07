@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
-import { tokenService } from './tokenService';
 import { Platform } from 'react-native';
+
+import { tokenService } from './tokenService';
 
 const baseUrl = Platform.OS === 'ios' ? 'http://localhost:3000' : 'http://10.0.2.2:3000';
 
