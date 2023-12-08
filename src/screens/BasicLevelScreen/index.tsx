@@ -1,13 +1,17 @@
 import { Image, Pressable, ScrollView, Text, VStack } from 'native-base';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useCryptoCurrencyData } from '../../api/hooks/useCryptoCurrencyData';
+import { CryptoCurrency } from '../../api/types/CryptoCurrency';
 import SecondsCountdown from '../../components/SecondsCountdown';
 import { useUser } from '../../contexts/UserContext';
+import { EditAssetModal } from '../WelcomeScreen/components/EditAssetModal';
 
 export const BasicLevelScreen = () => {
   const { data, nextRateUpdateTime, isFetching } = useCryptoCurrencyData();
-  const { toggleAssetInFavorites, isLoading, userData } = useUser();
+  const { isLoading, userData } = useUser();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedAsset, setSelectedAsset] = useState<CryptoCurrency | undefined>();
 
   return (
     <VStack flex="1">
@@ -21,7 +25,10 @@ export const BasicLevelScreen = () => {
             const isSelected = userData?.favoriteAssets.some((asset) => asset.id === item.id);
             return (
               <Pressable
-                onPress={() => toggleAssetInFavorites(item.id)}
+                onPress={() => {
+                  setModalIsOpen(true);
+                  setSelectedAsset(item);
+                }}
                 flexDirection="row"
                 justifyContent="space-around"
                 alignItems="center"
@@ -40,6 +47,9 @@ export const BasicLevelScreen = () => {
           <Text>No data!</Text>
         )}
       </ScrollView>
+      {selectedAsset && (
+        <EditAssetModal isOpen={modalIsOpen} closeModal={() => setModalIsOpen(false)} asset={selectedAsset} />
+      )}
     </VStack>
   );
 };
