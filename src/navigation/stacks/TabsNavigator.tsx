@@ -2,11 +2,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 
 import { AdvancedLevelScreen } from '../../screens/AdvancedLevelScreen';
-import { BasicLevelScreen } from '../../screens/BasicLevelScreen';
+import { DashboardScreen } from '../../screens/DashboardScreen';
 import { SettingsScreen } from '../../screens/SettingsScreen';
 
 export type TabsNavigatorParamsList = {
-  BasicLevelScreen: undefined;
+  DashboardScreen: undefined;
   AdvancedLevelScreen: undefined;
   SettingsScreen: undefined;
 };
@@ -18,7 +18,7 @@ export const TabsNavigator = () => {
         headerShown: false,
         tabBarShowLabel: false,
       }}>
-      <BottomTabs.Screen name="BasicLevelScreen" component={BasicLevelScreen} />
+      <BottomTabs.Screen name="DashboardScreen" component={DashboardScreen} />
       <BottomTabs.Screen name="AdvancedLevelScreen" component={AdvancedLevelScreen} />
       <BottomTabs.Screen name="SettingsScreen" component={SettingsScreen} />
     </BottomTabs.Navigator>
