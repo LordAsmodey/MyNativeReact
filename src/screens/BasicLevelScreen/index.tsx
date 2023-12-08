@@ -1,5 +1,6 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { Image, Pressable, ScrollView, Text, VStack } from 'native-base';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useCryptoCurrencyData } from '../../api/hooks/useCryptoCurrencyData';
 import { CryptoCurrency } from '../../api/types/CryptoCurrency';
@@ -12,6 +13,12 @@ export const BasicLevelScreen = () => {
   const { isLoading, userData } = useUser();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedAsset, setSelectedAsset] = useState<CryptoCurrency | undefined>();
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    queryClient.refetchQueries({ queryKey: ['UserData'] });
+    queryClient.refetchQueries({ queryKey: ['CryptoCurrencyData'] });
+  }, [queryClient, modalIsOpen]);
 
   return (
     <VStack flex="1">

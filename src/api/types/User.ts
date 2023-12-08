@@ -1,4 +1,4 @@
-type FavoriteAsset = {
+export type FavoriteAsset = {
   id: string;
   maxPrice: number | null;
   minPrice: number | null;

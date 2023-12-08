@@ -611,7 +611,7 @@ export type CryptoCurrency = {
   symbol: SymbolsEnum;
   name: CryptoCurrencyNamesEnum;
   image: string;
-  current_price: string;
+  current_price: number;
   market_cap: number;
   market_cap_rank: number;
   fully_diluted_valuation: number;

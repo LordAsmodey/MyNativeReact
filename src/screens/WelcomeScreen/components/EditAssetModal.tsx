@@ -1,6 +1,7 @@
 import { Button, HStack, Image, Text, VStack } from 'native-base';
 import React, { useEffect, useState } from 'react';
 
+import { deleteFavoriteAsset, editFavoriteAssets } from '../../../api/api';
 import { CryptoCurrency } from '../../../api/types/CryptoCurrency';
 import LabeledInput from '../../../components/Input/LabeledInput';
 import ModalBase from '../../../components/ModelBase';
@@ -13,12 +14,13 @@ type Props = {
 };
 
 export const EditAssetModal = ({ isOpen, closeModal, asset }: Props) => {
-  const { userData } = useUser();
   const [minPrice, setMinPrice] = useState<string | undefined>('0');
   const [maxPrice, setMaxPrice] = useState<string | undefined>('0');
+  const { userData } = useUser();
+
+  const isFavoriteAsset = userData.favoriteAssets.some((item) => item.id === asset.id);
 
   useEffect(() => {
-    const isFavoriteAsset = userData.favoriteAssets.some((item) => item.id === asset.id);
     if (isFavoriteAsset) {
       userData.favoriteAssets.forEach((item) => {
         if (item.id === asset.id) {
@@ -30,7 +32,21 @@ export const EditAssetModal = ({ isOpen, closeModal, asset }: Props) => {
       setMinPrice(asset.current_price.toString());
       setMaxPrice(asset.current_price.toString());
     }
-  }, [asset.current_price, asset.id, userData.favoriteAssets]);
+  }, [asset.current_price, asset.id, isFavoriteAsset, userData.favoriteAssets]);
+
+  const onConfirmPress = () => {
+    const maxPriceValue = maxPrice ? +maxPrice : 0;
+    const minPriceValue = minPrice ? +minPrice : 0;
+    editFavoriteAssets({ id: asset.id, maxPrice: maxPriceValue, minPrice: minPriceValue });
+    closeModal();
+  };
+
+  const onDeletePress = () => {
+    if (isFavoriteAsset) {
+      deleteFavoriteAsset({ id: asset.id });
+      closeModal();
+    }
+  };
 
   return (
     <ModalBase isOpen={isOpen}>
@@ -42,8 +58,8 @@ export const EditAssetModal = ({ isOpen, closeModal, asset }: Props) => {
         <LabeledInput value={maxPrice} label="Input max price" bg="gray.200" color="black" />
         <HStack w="100%" justifyContent="space-between">
           <Button onPress={closeModal}>Cancel</Button>
-          <Button>Confirm</Button>
-          <Button>Delete notification</Button>
+          <Button onPress={onConfirmPress}>Confirm</Button>
+          <Button onPress={onDeletePress}>Delete notification</Button>
         </HStack>
       </VStack>
     </ModalBase>
