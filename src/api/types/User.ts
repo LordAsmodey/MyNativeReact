@@ -1,7 +1,7 @@
-type FavoriteAsset = {
+export type FavoriteAsset = {
   id: string;
-  maxPrice: number | null;
-  minPrice: number | null;
+  maxPrice: number;
+  minPrice: number;
 };
 
 export type User = {

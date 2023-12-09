@@ -1,8 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import { getCryptoCurrencyInfo } from '../api';
-import { refetchOptions } from '../../utils/reactQuery';
 import { useState } from 'react';
+
 import { useUser } from '../../contexts/UserContext';
+import { refetchOptions } from '../../utils/reactQuery';
+import { getCryptoCurrencyInfo } from '../api';
+
 export const useCryptoCurrencyData = () => {
   const [nextRateUpdateTime, setNextRateUpdateTime] = useState(0);
   const {
