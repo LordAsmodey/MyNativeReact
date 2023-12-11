@@ -4,6 +4,7 @@ import { Platform } from 'react-native';
 
 import { tokenService } from './tokenService';
 
+// It's for only localhost testing. In production will use API_URL only.
 const baseUrl = Platform.OS === 'ios' ? API_URL : API_URL_ANDROID;
 
 // Implementation of a client service to add tokens to the request body and
