@@ -1,8 +1,8 @@
+import { useCryptoCurrencyData } from '@src/api/hooks/useCryptoCurrencyData';
+import { CryptoCurrency } from '@src/types/CryptoCurrency';
 import { FlatList, Spinner } from 'native-base';
 import React, { useEffect, useState } from 'react';
 
-import { useCryptoCurrencyData } from '../../../api/hooks/useCryptoCurrencyData';
-import { CryptoCurrency } from '../../../api/types/CryptoCurrency';
 import { AssetItem } from './AssetItem';
 
 const pageSize = 20;

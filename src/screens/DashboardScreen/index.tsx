@@ -1,11 +1,11 @@
+import { useCryptoCurrencyData } from '@src/api/hooks/useCryptoCurrencyData';
+import { SecondsCountdown } from '@src/components/';
+import { useUser } from '@src/contexts/UserContext';
+import { CryptoCurrency } from '@src/types/CryptoCurrency';
 import { useQueryClient } from '@tanstack/react-query';
 import { Text, VStack } from 'native-base';
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { useCryptoCurrencyData } from '../../api/hooks/useCryptoCurrencyData';
-import { CryptoCurrency } from '../../api/types/CryptoCurrency';
-import SecondsCountdown from '../../components/SecondsCountdown';
-import { useUser } from '../../contexts/UserContext';
 import { AssetsList } from './components/AssetsList';
 import { EditAssetModal } from './components/EditAssetModal';
 

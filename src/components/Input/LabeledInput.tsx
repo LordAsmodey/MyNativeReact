@@ -5,7 +5,7 @@ import { FieldError } from 'react-hook-form/dist/types/errors';
 import ErrorMessage, { ErrorMessageType } from '../ErrorMessage';
 import Input from './Input';
 
-const LabeledInput = ({
+export const LabeledInput = ({
   label,
   formControlProps = {},
   error,
@@ -49,5 +49,3 @@ const LabeledInput = ({
     </FormControl>
   );
 };
-
-export default LabeledInput;

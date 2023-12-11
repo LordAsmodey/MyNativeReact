@@ -1,6 +1,7 @@
+import { CryptoCurrency } from '@src/types/CryptoCurrency';
+import { FavoriteAsset } from '@src/types/User';
+
 import { axiosInstance } from './servises/client';
-import { CryptoCurrency } from './types/CryptoCurrency';
-import { FavoriteAsset } from './types/User';
 
 export const getCryptoCurrencyInfo = async (): Promise<CryptoCurrency[] | undefined> => {
   try {

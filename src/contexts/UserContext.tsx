@@ -1,8 +1,7 @@
+import { getUserInfo } from '@src/api/api';
+import { User } from '@src/types/User';
 import { useQuery } from '@tanstack/react-query';
 import React, { createContext, useContext, useState } from 'react';
-
-import { getUserInfo } from '../api/api';
-import { User } from '../api/types/User';
 
 const DEFAULT_RATE_UPDATE_TIMEOUT_MS = 20000;
 

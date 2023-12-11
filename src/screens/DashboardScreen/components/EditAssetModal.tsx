@@ -1,12 +1,10 @@
+import { deleteFavoriteAsset, editFavoriteAssets } from '@src/api/api';
+import { InputType, ModalBase, RangeCurrencyInput } from '@src/components/';
+import { useUser } from '@src/contexts/UserContext';
+import { CryptoCurrency } from '@src/types/CryptoCurrency';
 import { Button, HStack, Image, Text, VStack } from 'native-base';
 import React, { useEffect } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
-
-import { deleteFavoriteAsset, editFavoriteAssets } from '../../../api/api';
-import { CryptoCurrency } from '../../../api/types/CryptoCurrency';
-import { InputType, RangeCurrencyInput } from '../../../components/Input/RangeCurrencyInput';
-import ModalBase from '../../../components/ModelBase';
-import { useUser } from '../../../contexts/UserContext';
 
 const activeInputTypes = [{ type: InputType.MIN }, { type: InputType.MAX }];
 

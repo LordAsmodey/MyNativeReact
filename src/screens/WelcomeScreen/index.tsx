@@ -1,9 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamsList } from '@src/navigation/stacks/RootStack';
 import { Button, Text, VStack } from 'native-base';
 import React from 'react';
-
-import { RootStackParamsList } from '../../navigation/stacks/RootStack';
 
 export const WelcomeScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamsList>>();

@@ -1,8 +1,7 @@
+import { useUser } from '@src/contexts/UserContext';
+import { CryptoCurrency } from '@src/types/CryptoCurrency';
 import { Image, Pressable, Text } from 'native-base';
 import React, { memo } from 'react';
-
-import { CryptoCurrency } from '../../../api/types/CryptoCurrency';
-import { useUser } from '../../../contexts/UserContext';
 
 type Props = {
   asset: CryptoCurrency;
