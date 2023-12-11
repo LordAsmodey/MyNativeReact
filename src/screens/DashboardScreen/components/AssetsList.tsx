@@ -1,4 +1,4 @@
-import { useCryptoCurrencyData } from '@src/api/hooks/useCryptoCurrencyData';
+import { useCryptoCurrencyData } from '@src/hooks/useCryptoCurrencyData';
 import { CryptoCurrency } from '@src/types/CryptoCurrency';
 import { FlatList, Spinner } from 'native-base';
 import React, { useEffect, useState } from 'react';
