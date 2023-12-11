@@ -1,7 +1,7 @@
 import React from 'react';
 import { Control, Controller } from 'react-hook-form';
 
-import LabeledInput from './LabeledInput';
+import { LabeledInput } from './LabeledInput';
 
 type Props = {
   control: Control<any>;
