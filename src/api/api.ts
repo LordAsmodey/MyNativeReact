@@ -29,6 +29,21 @@ export const registerNewUser = async ({
   }
 };
 
+export const authUser = async ({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}): Promise<{ accessToken: string; refreshToken: string } | undefined> => {
+  try {
+    const res = await axiosInstance.post('/auth', { email, password });
+    return res.data;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 export const getUserInfo = async () => {
   try {
     const res = await axiosInstance.get('/getUserInfo');

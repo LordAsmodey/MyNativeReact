@@ -26,9 +26,9 @@ const createAxiosInstance = (): AxiosInstance => {
 
   hewInstance.interceptors.request.use(
     async (config) => {
-      if (tokenService.hasToken()) {
+      if (await tokenService.hasToken()) {
         try {
-          config.headers.Authorization = `Bearer ${tokenService.getToken()}`;
+          config.headers.Authorization = `Bearer ${await tokenService.getToken()}`;
         } catch (e) {
           console.error(e);
         }

@@ -1,6 +1,6 @@
 import { deleteFavoriteAsset, editFavoriteAssets } from '@src/api/api';
 import { InputType, ModalBase, RangeCurrencyInput } from '@src/components/';
-import { useUser } from '@src/contexts/UserContext';
+import { useUser } from '@src/contexts/AuthContext';
 import { CryptoCurrency } from '@src/types/CryptoCurrency';
 import { Button, HStack, Image, Text, VStack } from 'native-base';
 import React, { useEffect } from 'react';
