@@ -35,7 +35,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
   const [deviceId, setDeviceId] = useState('');
 
   useEffect(() => {
-    getUniqueId().then((deviceId) => setDeviceId(deviceId));
+    getUniqueId().then((id) => setDeviceId(id));
   }, []);
 
   useEffect(() => {
