@@ -5,19 +5,13 @@ import { EmailInput, LabeledInput } from '@src/components/';
 import { useUser } from '@src/contexts/AuthContext';
 import { RootStackParamsList } from '@src/navigation/stacks/RootStack';
 import { Box, Button, Text, VStack } from 'native-base';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
-import { getUniqueId } from 'react-native-device-info';
 
 export const WelcomeScreen = () => {
   const [password, setPassword] = useState('');
-  const [deviceId, setDeviceId] = useState('');
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
-  const { setTokens } = useUser();
-
-  useEffect(() => {
-    getUniqueId().then((deviceId) => setDeviceId(deviceId));
-  }, []);
+  const { setTokens, deviceId } = useUser();
 
   const { control, handleSubmit } = useForm({
     defaultValues: {

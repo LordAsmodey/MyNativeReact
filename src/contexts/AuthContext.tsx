@@ -3,6 +3,7 @@ import { tokenService } from '@src/api/servises/tokenService';
 import { User } from '@src/types/User';
 import { useQuery } from '@tanstack/react-query';
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import { getUniqueId } from 'react-native-device-info';
 
 const DEFAULT_RATE_UPDATE_TIMEOUT_MS = 20000;
 
@@ -10,6 +11,7 @@ interface IUserContextProvider {
   userData: User;
   accessToken: string | null;
   setTokens: (tokens: { accessToken: string; refreshToken: string }) => void;
+  deviceId: string;
   isLoading: boolean;
   userSettings: {
     rateUpdateTimeout: number;
@@ -19,6 +21,7 @@ const UserContextDefault = {
   userData: {} as User,
   accessToken: null,
   setTokens: () => {},
+  deviceId: '',
   isLoading: false,
   userSettings: {
     rateUpdateTimeout: DEFAULT_RATE_UPDATE_TIMEOUT_MS,
@@ -29,6 +32,11 @@ const AuthContext = createContext<IUserContextProvider>(UserContextDefault);
 export const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [, setRefreshToken] = useState<string | null>(null);
+  const [deviceId, setDeviceId] = useState('');
+
+  useEffect(() => {
+    getUniqueId().then((deviceId) => setDeviceId(deviceId));
+  }, []);
 
   useEffect(() => {
     const getToken = async () => {
@@ -61,6 +69,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
   const value = {
     userData,
     accessToken,
+    deviceId,
     isLoading,
     setTokens,
     userSettings: {
