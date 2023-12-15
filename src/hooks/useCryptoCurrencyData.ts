@@ -1,5 +1,5 @@
 import { getCryptoCurrencyInfo } from '@src/api/api';
-import { useUser } from '@src/contexts/UserContext';
+import { useUser } from '@src/contexts/AuthContext';
 import { refetchOptions } from '@src/utils/reactQuery';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';

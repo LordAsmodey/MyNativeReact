@@ -9,7 +9,7 @@
     "ios": "react-native run-ios --simulator=\"iPhone 13\"",
     "lint": "eslint .",
     "start": "react-native start",
-    "start -cc": "npx react-native start --reset-cache",
+    "start-cc": "npx react-native start --reset-cache",
     "test": "jest",
     "typeScryptCheck": "tsc"
   },

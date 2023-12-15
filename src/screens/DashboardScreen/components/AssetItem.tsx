@@ -1,4 +1,4 @@
-import { useUser } from '@src/contexts/UserContext';
+import { useUser } from '@src/contexts/AuthContext';
 import { CryptoCurrency } from '@src/types/CryptoCurrency';
 import { Image, Pressable, Text } from 'native-base';
 import React, { memo } from 'react';

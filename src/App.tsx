@@ -5,7 +5,7 @@ import { SafeAreaView, StatusBar } from 'react-native';
 import { getUniqueId } from 'react-native-device-info';
 import { OneSignal } from 'react-native-onesignal';
 
-import { UserContextProvider } from './contexts/UserContext';
+import { AuthContextProvider } from './contexts/AuthContext';
 import { Navigation } from './navigation/NavigationContainer';
 import * as theme from './theme';
 
@@ -31,9 +31,9 @@ function App(): React.JSX.Element {
           <StatusBar barStyle="light-content" />
         </SafeAreaView>
         <VStack flex="1" bg="gray.100">
-          <UserContextProvider>
+          <AuthContextProvider>
             <Navigation />
-          </UserContextProvider>
+          </AuthContextProvider>
         </VStack>
       </NativeBaseProvider>
     </QueryClientProvider>

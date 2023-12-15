@@ -1,5 +1,5 @@
 import { SecondsCountdown } from '@src/components/';
-import { useUser } from '@src/contexts/UserContext';
+import { useUser } from '@src/contexts/AuthContext';
 import { useCryptoCurrencyData } from '@src/hooks/useCryptoCurrencyData';
 import { CryptoCurrency } from '@src/types/CryptoCurrency';
 import { useQueryClient } from '@tanstack/react-query';
