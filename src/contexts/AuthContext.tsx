@@ -28,8 +28,7 @@ const AuthContext = createContext<IUserContextProvider>(UserContextDefault);
 
 export const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [accessToken, setAccessToken] = useState<string | null>(null);
-  const [refreshToken, setRefreshToken] = useState<string | null>(null);
-  console.log(refreshToken);
+  const [, setRefreshToken] = useState<string | null>(null);
 
   useEffect(() => {
     const getToken = async () => {

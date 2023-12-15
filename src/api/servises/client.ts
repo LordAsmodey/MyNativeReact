@@ -1,4 +1,5 @@
 import { API_URL, API_URL_ANDROID } from '@env';
+import { updateAccessToken } from '@src/api/api';
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import { Platform } from 'react-native';
 
@@ -61,20 +62,22 @@ const onResponseError = async (error: AxiosError): Promise<AxiosError> => {
           if (!refreshToken) {
             throw new Error('Refresh token not found');
           }
-          // TODO: Set newAccessToken
-          // const {
-          //   data: { accessToken: newAccessToken, refreshToken: newRefreshToken },
-          // } = await userApi.usersControllerRefreshToken({ refreshToken });
-          //
-          // tokenService.setTokens(newAccessToken, newRefreshToken);
-          // return await axios.request({
-          //   ...error.config,
-          //   headers: {
-          //     ...error.config.headers,
-          //     Authorization: `Bearer ${newAccessToken}`,
-          //   },
-          // });
-        } catch {
+          const newTokens = await updateAccessToken({
+            refreshToken,
+          });
+          if (newTokens) {
+            const { accessToken: newAccessToken, refreshToken: newRefreshToken } = newTokens;
+            tokenService.setTokens(newAccessToken, newRefreshToken);
+            return await axios.request({
+              ...error.config,
+              headers: {
+                ...error?.config?.headers,
+                Authorization: `Bearer ${newAccessToken}`,
+              },
+            });
+          }
+        } catch (e) {
+          console.error(e);
           logout();
         }
         break;

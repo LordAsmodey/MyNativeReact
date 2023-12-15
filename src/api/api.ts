@@ -20,10 +20,10 @@ export const registerNewUser = async ({
   email: string;
   password: string;
   deviceId: string;
-}) => {
+}): Promise<{ accessToken: string; refreshToken: string } | undefined> => {
   try {
     const res = await axiosInstance.post('/register', { email, password, deviceId });
-    console.log(res.data);
+    return res.data;
   } catch (e) {
     console.error(e);
   }
@@ -67,5 +67,19 @@ export const deleteFavoriteAsset = async ({ id }: { id: string }) => {
     return res.data;
   } catch (e) {
     console.error(e);
+  }
+};
+
+export const updateAccessToken = async ({
+  refreshToken,
+}: {
+  refreshToken: string;
+}): Promise<{ accessToken: string; refreshToken: string } | undefined> => {
+  try {
+    const res = await axiosInstance.post('/updateAccessToken', { refreshToken });
+    return res.data;
+  } catch (e) {
+    console.error(e);
+    return undefined;
   }
 };
