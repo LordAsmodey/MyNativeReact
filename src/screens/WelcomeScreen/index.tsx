@@ -1,28 +1,30 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { authUser, registerNewUser } from '@src/api/api';
-import { EmailInput, LabeledInput } from '@src/components/';
+import { ButtonGreen, ButtonRed, EmailInput, Layout } from '@src/components/';
 import { useUser } from '@src/contexts/AuthContext';
 import { RootStackParamsList } from '@src/navigation/stacks/RootStack';
-import { Box, Button, Text, VStack } from 'native-base';
-import React, { useState } from 'react';
+import { Box, HStack, Text, VStack } from 'native-base';
+import React from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
+import { PasswordInput } from '../../components/Input/PasswordInput';
+
 export const WelcomeScreen = () => {
-  const [password, setPassword] = useState('');
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
   const { setTokens, deviceId } = useUser();
 
   const { control, handleSubmit } = useForm({
     defaultValues: {
       email: '',
+      password: '',
     },
     mode: 'onBlur',
   });
 
-  const [email] = useWatch({
+  const [email, password] = useWatch({
     control,
-    name: ['email'],
+    name: ['email', 'password'],
   });
 
   const onAuthHandler = async () => {
@@ -50,18 +52,24 @@ export const WelcomeScreen = () => {
   };
 
   return (
-    <VStack>
-      <Text>WelcomeScreen</Text>
-      <Box px="24px">
+    <Layout>
+      <Box px="24px" pt="24px">
+        <HStack h="46px" bg="gray.100">
+          <Text>BTNS</Text>
+        </HStack>
+        <Text color="white" fontSize="3xl" fontWeight="700">
+          Sign in
+        </Text>
+        {/*@ts-ignore*/}
         <EmailInput control={control} />
-        <LabeledInput bg="gray.300" label="Password" value={password} onChangeText={setPassword} type="password" />
-        <Button mt="36px" onPress={handleSubmit(onAuthHandler)}>
+        {/*@ts-ignore*/}
+        <PasswordInput control={control} />
+        <ButtonGreen mt="36px" onPress={handleSubmit(onAuthHandler)}>
           Login
-        </Button>
-        <Button mt="36px" onPress={handleSubmit(onRegisterHandler)}>
-          Register
-        </Button>
+        </ButtonGreen>
+        <VStack mb="1" />
+        <ButtonRed onPress={handleSubmit(onRegisterHandler)}>Register</ButtonRed>
       </Box>
-    </VStack>
+    </Layout>
   );
 };

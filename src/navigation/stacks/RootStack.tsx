@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { WelcomeScreen } from '@src/screens/WelcomeScreen';
 import React from 'react';
 
-import { WelcomeScreen } from '../../screens/WelcomeScreen';
 import { TabsNavigator, TabsNavigatorParamsList } from './TabsNavigator';
 
 export type RootStackParamsList = {

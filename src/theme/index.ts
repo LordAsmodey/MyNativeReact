@@ -3,22 +3,17 @@ import { extendTheme } from 'native-base';
 
 export const theme = extendTheme({
   colors: {
-    // Add new color
-    primary: {
-      50: '#E3F2F9',
-      100: '#C5E4F3',
-      200: '#A2D4EC',
-      300: '#7AC1E4',
-      400: '#47A9DA',
-      500: '#0088CC',
-      600: '#007AB8',
-      700: '#006BA1',
-      800: '#005885',
-      900: '#003F5E',
-    },
-    // Redefining only one shade, rest of the color will remain same.
-    amber: {
-      400: '#d97706',
+    textRegular: '#C1C7CD',
+    textBlack: '#171D22',
+    textLabel: '#A7AFB7',
+    textHeader: '#fff',
+    textDisabled: '#777777',
+    primary: '#5ED5A8',
+    secondary: '#DD4B4B',
+    background: {
+      100: '#1B232A',
+      200: '#161C22',
+      300: '#b2b8bd',
     },
   },
 });
