@@ -1,3 +1,4 @@
+export * from './AuthInputs';
 export * from './CurrencyAmountInput';
 export * from './EmailInput';
 export * from './Input';

@@ -1,7 +1,8 @@
+import { ONE_SIGNAL_APP_ID } from '@env';
+import { CustomStatusBar } from '@src/components/';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { NativeBaseProvider, VStack } from 'native-base';
 import React from 'react';
-import { SafeAreaView, StatusBar } from 'react-native';
 import { getUniqueId } from 'react-native-device-info';
 import { OneSignal } from 'react-native-onesignal';
 
@@ -10,7 +11,8 @@ import { Navigation } from './navigation/NavigationContainer';
 import * as theme from './theme';
 
 // OneSignal Initialization
-OneSignal.initialize('454552f5-e593-450f-8814-f12e7c26ead2');
+OneSignal.initialize(ONE_SIGNAL_APP_ID);
+// TODO: Refactor this part, move it to user settings
 // requestPermission will show the native iOS or Android notification permission prompt.
 // We recommend removing the following code and instead using an In-App Message to prompt for notification permission
 OneSignal.Notifications.requestPermission(true);
@@ -27,10 +29,8 @@ function App(): React.JSX.Element {
   return (
     <QueryClientProvider client={client}>
       <NativeBaseProvider theme={theme.theme} config={theme.config}>
-        <SafeAreaView>
-          <StatusBar barStyle="light-content" />
-        </SafeAreaView>
-        <VStack flex="1" bg="gray.100">
+        <CustomStatusBar />
+        <VStack flex="1" bg="background.100">
           <AuthContextProvider>
             <Navigation />
           </AuthContextProvider>

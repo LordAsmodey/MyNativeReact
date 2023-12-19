@@ -4,21 +4,16 @@ import React from 'react';
 const Input = (props: IInputProps) => (
   <NBInput
     variant="unstyled"
-    h="56px"
+    h="54px"
     px="24px"
-    bg="background.300"
-    borderRadius="10px"
+    bg="background.200"
+    borderRadius="12px"
     color="textRegular"
     borderWidth="1px"
     borderColor="transparent"
     _focus={{
-      borderColor: 'secondary.400',
-      _hover: {
-        borderColor: 'secondary.400',
-      },
-    }}
-    _hover={{
-      borderColor: 'primary.400',
+      borderColor: 'textRegular',
+      bg: 'background.200',
     }}
     _disabled={{
       opacity: 1,

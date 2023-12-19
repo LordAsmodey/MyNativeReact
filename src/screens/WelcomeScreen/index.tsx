@@ -1,29 +1,55 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { authUser, registerNewUser } from '@src/api/api';
-import { EmailInput, LabeledInput } from '@src/components/';
+import { AuthInputs, AuthInputType, ButtonGreen, Layout, Tab, Tabs } from '@src/components/';
 import { useUser } from '@src/contexts/AuthContext';
 import { RootStackParamsList } from '@src/navigation/stacks/RootStack';
-import { Box, Button, Text, VStack } from 'native-base';
+import { Box, Text } from 'native-base';
 import React, { useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
+const activeInputTypes = [{ type: AuthInputType.Email }, { type: AuthInputType.Password }];
+
+enum authTitles {
+  SignIn = 'Sign in',
+  SignUp = 'Sign up',
+}
+
+const authOptions = [
+  {
+    title: authTitles.SignIn,
+  },
+  {
+    title: authTitles.SignUp,
+  },
+];
+
 export const WelcomeScreen = () => {
-  const [password, setPassword] = useState('');
+  const [isSignInActive, setSignInActive] = useState(true);
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
   const { setTokens, deviceId } = useUser();
 
-  const { control, handleSubmit } = useForm({
+  const title = isSignInActive ? authTitles.SignIn : authTitles.SignUp;
+
+  const switchAuthMode = () => {
+    setSignInActive((prev) => !prev);
+  };
+
+  const { control, handleSubmit, formState } = useForm({
     defaultValues: {
       email: '',
+      password: '',
     },
     mode: 'onBlur',
   });
 
-  const [email] = useWatch({
+  const [email, password] = useWatch({
     control,
-    name: ['email'],
+    name: ['email', 'password'],
   });
+
+  const { errors } = formState;
+  const hasErrors = Object.keys(errors).length > 0;
 
   const onAuthHandler = async () => {
     try {
@@ -50,18 +76,31 @@ export const WelcomeScreen = () => {
   };
 
   return (
-    <VStack>
-      <Text>WelcomeScreen</Text>
-      <Box px="24px">
-        <EmailInput control={control} />
-        <LabeledInput bg="gray.300" label="Password" value={password} onChangeText={setPassword} type="password" />
-        <Button mt="36px" onPress={handleSubmit(onAuthHandler)}>
-          Login
-        </Button>
-        <Button mt="36px" onPress={handleSubmit(onRegisterHandler)}>
-          Register
-        </Button>
+    <Layout>
+      <Box flex="1" justifyContent="space-between">
+        <Box>
+          <Tabs>
+            {authOptions.map((item, i) => (
+              <Tab
+                key={item.title}
+                title={item.title}
+                isActive={isSignInActive === (i === 0)}
+                onPress={switchAuthMode}
+              />
+            ))}
+          </Tabs>
+          <Text color="white" fontSize="3xl" fontWeight="700" mt="40px">
+            {title}
+          </Text>
+          <AuthInputs control={control} activeInputTypes={activeInputTypes} />
+        </Box>
+        <ButtonGreen
+          isDisabled={hasErrors}
+          mt="36px"
+          onPress={handleSubmit(isSignInActive ? onAuthHandler : onRegisterHandler)}>
+          {title}
+        </ButtonGreen>
       </Box>
-    </VStack>
+    </Layout>
   );
 };

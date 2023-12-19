@@ -1,23 +1,22 @@
+import { EyeSlashIcon, LabeledInput } from '@src/components/';
 import { VStack } from 'native-base';
 import React from 'react';
 import { Control, Controller } from 'react-hook-form';
 
-import { LabeledInput } from './LabeledInput';
-
 type Props = {
-  control: Control<{ email: string }>;
+  control: Control<{ password: string }>;
 };
 
-export const EmailInput = ({ control }: Props) => (
-  <VStack h="100px">
+export const PasswordInput = ({ control }: Props) => (
+  <VStack h="110px">
     <VStack>
       <Controller
         control={control}
         rules={{
-          required: 'Email is required',
-          pattern: {
-            value: /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/,
-            message: 'Email is incorrect',
+          required: 'Password is required',
+          minLength: {
+            value: 6,
+            message: 'Password must contain min 6 characters',
           },
         }}
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -31,7 +30,7 @@ export const EmailInput = ({ control }: Props) => (
               onChangeText={handleOnChange}
               onSubmit={() => {}}
               {...field}
-              label="Email"
+              label="Password"
               autoCapitalize="none"
               autoComplete="off"
               autoCorrect={false}
@@ -41,13 +40,17 @@ export const EmailInput = ({ control }: Props) => (
                 fontSize: 'md',
               }}
               fontSize="md"
-              placeholder="Enter your email"
+              placeholder="Enter your password"
               placeholderTextColor="textDisabled"
+              type="password"
             />
           );
         }}
-        name="email"
+        name="password"
       />
+    </VStack>
+    <VStack position="absolute" right="16px" bottom="37px">
+      <EyeSlashIcon />
     </VStack>
   </VStack>
 );
