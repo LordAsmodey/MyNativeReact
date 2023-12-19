@@ -1,4 +1,4 @@
-import { LabeledInput } from '@src/components/';
+import { EyeSlashIcon, LabeledInput } from '@src/components/';
 import { VStack } from 'native-base';
 import React from 'react';
 import { Control, Controller } from 'react-hook-form';
@@ -48,6 +48,9 @@ export const PasswordInput = ({ control }: Props) => (
         }}
         name="password"
       />
+    </VStack>
+    <VStack position="absolute" right="16px" bottom="37px">
+      <EyeSlashIcon />
     </VStack>
   </VStack>
 );

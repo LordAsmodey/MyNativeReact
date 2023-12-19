@@ -1,20 +1,41 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { authUser, registerNewUser } from '@src/api/api';
-import { ButtonGreen, ButtonRed, EmailInput, Layout } from '@src/components/';
+import { AuthInputs, AuthInputType, ButtonGreen, Layout, Tab, Tabs } from '@src/components/';
 import { useUser } from '@src/contexts/AuthContext';
 import { RootStackParamsList } from '@src/navigation/stacks/RootStack';
-import { Box, HStack, Text, VStack } from 'native-base';
-import React from 'react';
+import { Box, Text } from 'native-base';
+import React, { useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
-import { PasswordInput } from '../../components/Input/PasswordInput';
+const activeInputTypes = [{ type: AuthInputType.Email }, { type: AuthInputType.Password }];
+
+enum authTitles {
+  SignIn = 'Sign in',
+  SignUp = 'Sign up',
+}
+
+const authOptions = [
+  {
+    title: authTitles.SignIn,
+  },
+  {
+    title: authTitles.SignUp,
+  },
+];
 
 export const WelcomeScreen = () => {
+  const [isSignInActive, setSignInActive] = useState(true);
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamsList>>();
   const { setTokens, deviceId } = useUser();
 
-  const { control, handleSubmit } = useForm({
+  const title = isSignInActive ? authTitles.SignIn : authTitles.SignUp;
+
+  const switchAuthMode = () => {
+    setSignInActive((prev) => !prev);
+  };
+
+  const { control, handleSubmit, formState } = useForm({
     defaultValues: {
       email: '',
       password: '',
@@ -26,6 +47,9 @@ export const WelcomeScreen = () => {
     control,
     name: ['email', 'password'],
   });
+
+  const { errors } = formState;
+  const hasErrors = Object.keys(errors).length > 0;
 
   const onAuthHandler = async () => {
     try {
@@ -53,22 +77,29 @@ export const WelcomeScreen = () => {
 
   return (
     <Layout>
-      <Box px="24px" pt="24px">
-        <HStack h="46px" bg="gray.100">
-          <Text>BTNS</Text>
-        </HStack>
-        <Text color="white" fontSize="3xl" fontWeight="700">
-          Sign in
-        </Text>
-        {/*@ts-ignore*/}
-        <EmailInput control={control} />
-        {/*@ts-ignore*/}
-        <PasswordInput control={control} />
-        <ButtonGreen mt="36px" onPress={handleSubmit(onAuthHandler)}>
-          Login
+      <Box flex="1" justifyContent="space-between">
+        <Box>
+          <Tabs>
+            {authOptions.map((item, i) => (
+              <Tab
+                key={item.title}
+                title={item.title}
+                isActive={isSignInActive === (i === 0)}
+                onPress={switchAuthMode}
+              />
+            ))}
+          </Tabs>
+          <Text color="white" fontSize="3xl" fontWeight="700" mt="40px">
+            {title}
+          </Text>
+          <AuthInputs control={control} activeInputTypes={activeInputTypes} />
+        </Box>
+        <ButtonGreen
+          isDisabled={hasErrors}
+          mt="36px"
+          onPress={handleSubmit(isSignInActive ? onAuthHandler : onRegisterHandler)}>
+          {title}
         </ButtonGreen>
-        <VStack mb="1" />
-        <ButtonRed onPress={handleSubmit(onRegisterHandler)}>Register</ButtonRed>
       </Box>
     </Layout>
   );

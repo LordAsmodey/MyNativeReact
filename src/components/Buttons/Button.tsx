@@ -5,6 +5,7 @@ export const Button = forwardRef<HTMLElement, IButtonProps>(({ children, ...rest
   <NBButton
     borderRadius="16px"
     h="54px"
+    // TODO: Fix types
     // @ts-ignore
     ref={(r) => {
       if (forwardedRef) {
